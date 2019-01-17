@@ -1,14 +1,18 @@
 /// Signature for a builder which creates an object of type [T].
 typedef T Factory<T>(Container container);
 
-/// A simple service container.
-class Container {
-  Container._() : _namedProviders = Map<String, Map<Type, _Provider<Object>>>();
-
+/// A simple global service container.
+class Container extends ScopedContainer {
   static final Container _instance = new Container._();
+
+  Container._() : super();
 
   /// Always returns a singleton representing the only container to be alive.
   factory Container() => _instance;
+}
+
+class ScopedContainer {
+  ScopedContainer() : _namedProviders = Map<String, Map<Type, _Provider<Object>>>();
 
   final Map<String, Map<Type, _Provider<Object>>> _namedProviders;
 
